@@ -106,6 +106,11 @@ class Readability
         'pre',
     ];
 
+    private $removeScriptTags = [
+        'script',
+        'noscript'
+    ];
+
     /**
      * @var array
      */
@@ -817,7 +822,7 @@ class Readability
      */
     private function removeScripts(DOMDocument $dom)
     {
-        foreach (['script', 'noscript'] as $tag) {
+        foreach ($this->removeScriptTags as $tag) {
             $nodes = $dom->getElementsByTagName($tag);
             foreach (iterator_to_array($nodes) as $node) {
                 NodeUtility::removeNode($node);
@@ -1721,6 +1726,11 @@ class Readability
     protected function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    public function setRemoveScriptTags(array $scriptTags)
+    {
+        $this->removeScriptTags = $scriptTags;
     }
 
     /**
